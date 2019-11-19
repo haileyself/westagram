@@ -1,0 +1,53 @@
+{
+  "extends": ["tslint:recommended", "tslint-react", "tslint-config-prettier"],
+  "rules": {
+    "max-line-length": false,
+    "no-console": false,
+    "no-boolean-literal-compare": false,
+    "no-conditional-assignment": true,
+    "no-unused-variable": false,
+    "quotemark": [true, "single", "jsx-double"],
+    "variable-name": [
+      true,
+      "ban-keywords",
+      "check-format",
+      "allow-pascal-case"
+    ],
+    "function-name": [
+      true,
+      {
+        "function-regex": "^[\\w\\d]+$",
+        "static-method-regex": "^[\\w\\d]+$"
+      }
+    ],
+    "import-name": false,
+    "jsx-alignment": true,
+    "jsx-boolean-value": [true, "never"],
+    "jsx-no-multiline-js": false,
+    "jsx-no-lambda": false,
+    "object-literal-sort-keys": false,
+    "interface-name": {
+      "options": ["never-prefix"]
+    },
+    "member-access": [true, "no-public"],
+    "ordered-imports": false,
+    "jsRules": {
+      "no-console": false
+    },
+    "overrides": [
+      {
+        "files": ["*.js"],
+        "rules": {
+          "typescript/no-var-requires": "off"
+        }
+      }
+    ]
+  },
+  "linterOptions": {
+    "exclude": [
+      "config/**/*.js",
+      "node_modules/**/*.ts",
+      "coverage/lcov-report/*.js"
+    ]
+  }
+}
