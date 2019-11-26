@@ -5,13 +5,23 @@ import PostingBox from './PostingBox';
 import SubContents from './SubContents';
 import PostingData from './data';
 
-interface PostingData {
-  src: string;
-  imgName: string;
-  text: string;
-  like: string;
-  id: string;
-}
+const Main: React.SFC = () => {
+  return (
+    <Wrapper>
+      <Header />
+      <MainSection>
+        {PostingData.map(el => (
+          <PostingBox postingData={el} />
+        ))}
+        <SubWrapper>
+          <SubContents />
+        </SubWrapper>
+      </MainSection>
+    </Wrapper>
+  );
+};
+
+export default Main;
 
 const Wrapper = styled.div`
   margin-top: 65px;
@@ -34,21 +44,3 @@ const SubWrapper = styled.div`
   right: 0;
   width: 100%;
 `;
-
-const Main: React.SFC<PostingData> = () => {
-  return (
-    <Wrapper>
-      <Header />
-      <MainSection>
-        {PostingData.map(el => (
-          <PostingBox postingData={el} />
-        ))}
-        <SubWrapper>
-          <SubContents />
-        </SubWrapper>
-      </MainSection>
-    </Wrapper>
-  );
-};
-
-export default Main;

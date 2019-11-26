@@ -13,6 +13,12 @@ interface PostingBoxState {
   id: number;
 }
 
+interface Props {
+  postingData: PostingBoxProps
+}
+// 프롭스 인터페이스를 정의해주고(통째로하는 거 )
+// 그 안에 해당하는 프롭스 데이터를 넣어준다.
+
 interface CommentsArr {
   name: string;
   message: string;
@@ -27,6 +33,142 @@ interface PostingBoxProps {
   like: string;
   id: string;
 }
+
+class PostingBox extends React.Component<
+  Props,
+  PostingBoxState
+> {
+  constructor(props: Props) {
+    super(props);
+    this.state = {
+      id: 1,
+      commentValue: '',
+      comments: [],
+    };
+  }
+
+  handleLikeIcon(id: number, index: number) {
+    console.log(index, 'index값');
+    console.log(this.state.comments[index].commentLiked, 'commentLiked접근');
+    const commentsCopy = JSON.parse(JSON.stringify(this.state.comments));
+    console.log(commentsCopy, '카피본');
+    commentsCopy[index].commentLiked = !commentsCopy[index].commentLiked;
+    this.setState({ comments: commentsCopy });
+  }
+
+  getComment = (e: React.ChangeEvent<HTMLInputElement>) => {
+    this.setState({ commentValue: e.target.value });
+  };
+
+  addComment = () => {
+    return this.setState({
+      id: this.state.id + 1,
+      commentValue: '', // 이걸 안해주면 input값이 빈칸이 안됨
+      comments: [
+        ...this.state.comments,
+        {
+          name: 'hailey',
+          message: this.state.commentValue,
+          id: this.state.id,
+          commentLiked: false,
+        },
+      ],
+    });
+  };
+
+  render() {
+    const { comments } = this.state;
+    return (
+      <Wrapper>
+        <MainHeader>
+          <ProfileWrapper>
+            <ProfileImgBox>
+              <ProfileImg src={this.props.postingData.src} />
+            </ProfileImgBox>
+            <IdSection>
+              <IdTitle href="/">
+                <Id>{this.props.postingData.id}</Id>
+              </IdTitle>
+              <IdSubtitle>6시간전</IdSubtitle>
+            </IdSection>
+          </ProfileWrapper>
+          <ShowMoreButton>
+            <ShowMoreIcon />
+          </ShowMoreButton>
+        </MainHeader>
+        <PhotoBox>
+          <PostingPhoto src={this.props.postingData.src} />
+        </PhotoBox>
+        <ContentBox>
+          <IconSection>
+            <IconInnerWrap>
+              <LikeIconBox>
+                <LikeIcon />
+              </LikeIconBox>
+              <CommentIconBox>
+                <CommentIcon />
+              </CommentIconBox>
+              <ShareIconBox>
+                <ShareIcon />
+              </ShareIconBox>
+            </IconInnerWrap>
+            <SaveInnerWrapper>
+              <SaveIconBox>
+                <SaveIcon />
+              </SaveIconBox>
+            </SaveInnerWrapper>
+          </IconSection>
+          <CountLikeBox>
+            <CountLike>좋아요 {this.props.postingData.like}</CountLike>
+          </CountLikeBox>
+          <MyStoryBox>
+            <MyId>{this.props.postingData.id}</MyId>
+            <MyStory>{this.props.postingData.text}</MyStory>
+          </MyStoryBox>
+          <CommentBox>
+            <CommentListWrap>
+              {comments.map((el, index) => {
+                return (
+                  <>
+                    <CommetList>
+                      <CommentWrap>
+                        <CommentID>
+                          <CommentIDLink>{el.name}</CommentIDLink>
+                        </CommentID>
+                        <CommentText>{el.message}</CommentText>
+                      </CommentWrap>
+                      <CommentLikeBox
+                        onClick={() => this.handleLikeIcon(el.id, index)}
+                      >
+                        {el.commentLiked === true ? (
+                          <HeartIcon className="fas fa-heart" />
+                        ) : (
+                          <HeartIcon className="far fa-heart" />
+                        )}
+                      </CommentLikeBox>
+                    </CommetList>
+                  </>
+                );
+              })}
+              <TimeLine> 20시간 전</TimeLine>
+            </CommentListWrap>
+          </CommentBox>
+        </ContentBox>
+        <WriteCommentWrap>
+          <WriteCommentBox
+            type="textarea"
+            placeholder="댓글 달기..."
+            onChange={this.getComment}
+            value={this.state.commentValue}
+          />
+          <PostButtonBox onClick={this.addComment}>게시</PostButtonBox>
+        </WriteCommentWrap>
+      </Wrapper>
+    );
+  }
+}
+
+export default PostingBox;
 
 const Wrapper = styled.div`
   max-width: 614px;
@@ -310,139 +452,3 @@ const IdSubtitle = styled.div`
   color: #999;
   text-align: left;
 `;
-
-class PostingBox extends React.Component<
-  { postingData: PostingBoxProps },
-  PostingBoxState
-> {
-  constructor(props: any) {
-    super(props);
-    this.state = {
-      id: 1,
-      commentValue: '',
-      comments: [],
-    };
-  }
-
-  handleLikeIcon(id: number, index: number) {
-    console.log(index, 'index값');
-    console.log(this.state.comments[index].commentLiked, 'commentLiked접근');
-    const commentsCopy = JSON.parse(JSON.stringify(this.state.comments));
-    console.log(commentsCopy, '카피본');
-    commentsCopy[index].commentLiked = !commentsCopy[index].commentLiked;
-    this.setState({ comments: commentsCopy });
-  }
-
-  getComment = (e: React.ChangeEvent<HTMLInputElement>) => {
-    this.setState({ commentValue: e.target.value });
-  };
-
-  addComment = () => {
-    return this.setState({
-      id: this.state.id + 1,
-      commentValue: '', // 이걸 안해주면 input값이 빈칸이 안됨
-      comments: [
-        ...this.state.comments,
-        {
-          name: 'hailey',
-          message: this.state.commentValue,
-          id: this.state.id,
-          commentLiked: false,
-        },
-      ],
-    });
-  };
-
-  render() {
-    const { comments } = this.state;
-    return (
-      <Wrapper>
-        <MainHeader>
-          <ProfileWrapper>
-            <ProfileImgBox>
-              <ProfileImg src={this.props.postingData.src} />
-            </ProfileImgBox>
-            <IdSection>
-              <IdTitle href="/">
-                <Id>{this.props.postingData.id}</Id>
-              </IdTitle>
-              <IdSubtitle>6시간전</IdSubtitle>
-            </IdSection>
-          </ProfileWrapper>
-          <ShowMoreButton>
-            <ShowMoreIcon />
-          </ShowMoreButton>
-        </MainHeader>
-        <PhotoBox>
-          <PostingPhoto src={this.props.postingData.src} />
-        </PhotoBox>
-        <ContentBox>
-          <IconSection>
-            <IconInnerWrap>
-              <LikeIconBox>
-                <LikeIcon />
-              </LikeIconBox>
-              <CommentIconBox>
-                <CommentIcon />
-              </CommentIconBox>
-              <ShareIconBox>
-                <ShareIcon />
-              </ShareIconBox>
-            </IconInnerWrap>
-            <SaveInnerWrapper>
-              <SaveIconBox>
-                <SaveIcon />
-              </SaveIconBox>
-            </SaveInnerWrapper>
-          </IconSection>
-          <CountLikeBox>
-            <CountLike>좋아요 {this.props.postingData.like}</CountLike>
-          </CountLikeBox>
-          <MyStoryBox>
-            <MyId>{this.props.postingData.id}</MyId>
-            <MyStory>{this.props.postingData.text}</MyStory>
-          </MyStoryBox>
-          <CommentBox>
-            <CommentListWrap>
-              {comments.map((el, index) => {
-                return (
-                  <>
-                    <CommetList>
-                      <CommentWrap>
-                        <CommentID>
-                          <CommentIDLink>{el.name}</CommentIDLink>
-                        </CommentID>
-                        <CommentText>{el.message}</CommentText>
-                      </CommentWrap>
-                      <CommentLikeBox
-                        onClick={() => this.handleLikeIcon(el.id, index)}
-                      >
-                        {el.commentLiked === true ? (
-                          <HeartIcon className="fas fa-heart" />
-                        ) : (
-                          <HeartIcon className="far fa-heart" />
-                        )}
-                      </CommentLikeBox>
-                    </CommetList>
-                  </>
-                );
-              })}
-              <TimeLine> 20시간 전</TimeLine>
-            </CommentListWrap>
-          </CommentBox>
-        </ContentBox>
-        <WriteCommentWrap>
-          <WriteCommentBox
-            type="textarea"
-            placeholder="댓글 달기..."
-            onChange={this.getComment}
-            value={this.state.commentValue}
-          />
-          <PostButtonBox onClick={this.addComment}>게시</PostButtonBox>
-        </WriteCommentWrap>
-      </Wrapper>
-    );
-  }
-}
-
-export default PostingBox;

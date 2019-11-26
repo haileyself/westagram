@@ -1,11 +1,37 @@
 import * as React from 'react';
 import styled from 'styled-components';
 
-interface ProfileBoxProps {
+interface Props {
+  profileData: ProfileDataProps;
+}
+interface ProfileDataProps {
   src: string;
   id: string;
   time: string;
 }
+
+class ProfileBox extends React.Component<Props> {
+  constructor(props: any) {
+    super(props);
+  }
+  render() {
+    return (
+      <Wrapper>
+        <ProfileImgBox>
+          <ProfileImg src={this.props.profileData.src} />
+        </ProfileImgBox>
+        <IdSection>
+          <IdTitle href="/">
+            <Id>{this.props.profileData.id}</Id>
+          </IdTitle>
+          <IdSubtitle>{this.props.profileData.time}</IdSubtitle>
+        </IdSection>
+      </Wrapper>
+    );
+  }
+}
+
+export default ProfileBox;
 
 const Wrapper = styled.div`
   display: flex;
@@ -58,26 +84,3 @@ const IdSubtitle = styled.div`
   color: #999;
   text-align: left;
 `;
-
-class ProfileBox extends React.Component<{ profileData: ProfileBoxProps }> {
-  constructor(props: any) {
-    super(props);
-  }
-  render() {
-    return (
-      <Wrapper>
-        <ProfileImgBox>
-          <ProfileImg src={this.props.profileData.src} />
-        </ProfileImgBox>
-        <IdSection>
-          <IdTitle href="/">
-            <Id>{this.props.profileData.id}</Id>
-          </IdTitle>
-          <IdSubtitle>{this.props.profileData.time}</IdSubtitle>
-        </IdSection>
-      </Wrapper>
-    );
-  }
-}
-
-export default ProfileBox;

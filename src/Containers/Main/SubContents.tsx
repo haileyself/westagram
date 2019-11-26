@@ -1,14 +1,102 @@
 import * as React from 'react';
 import styled from 'styled-components';
-// import ProfileBox from 'src/Components/ProfileBox';
+import ProfileBox from 'src/Components/ProfileBox';
 import profileImage from 'src/assets/images/myprofileimg.png';
 import ProfileData from '../../Containers/Main/profileData';
 
-interface ProfileData {
-  src: string;
-  id: string;
-  time: string;
-}
+
+
+const SubContents: React.FC = () => {
+  return (
+    <Wrapper>
+      <InnerWrapper>
+        <ProfileWrapper>
+          <ProfileImgBox>
+            <ProfileImg src={profileImage} />
+          </ProfileImgBox>
+          <IdSection>
+            <IdTitle href="/">
+              <Id>haileyself</Id>
+            </IdTitle>
+            <IdSubtitle>17시간전</IdSubtitle>
+          </IdSection>
+        </ProfileWrapper>
+      </InnerWrapper>
+      <StoryBox>
+        <SubBoxHeader>
+          <SubBoxName>스토리</SubBoxName>
+          <ShowSubBoxLink>
+            <ShowSubBox>모두 보기</ShowSubBox>
+          </ShowSubBoxLink>
+        </SubBoxHeader>
+        <StorySection>
+          {ProfileData.map(el => (
+            <StoryButton>
+              <ProfileBox profileData={el} />
+            </StoryButton>
+          ))}
+        </StorySection>
+      </StoryBox>
+      <RecommendBox>
+        <SubBoxHeader>
+          <SubBoxName>회원님을 위한 추천</SubBoxName>
+          <ShowSubBoxLink>
+            <ShowSubBox>모두 보기</ShowSubBox>
+          </ShowSubBoxLink>
+        </SubBoxHeader>
+        <RecommendSection>
+          {ProfileData.map(el => (
+            <RecommendList>
+              <ProfileBox profileData={el} />
+              <FollowButton>팔로우</FollowButton>
+            </RecommendList>
+          ))}
+        </RecommendSection>
+      </RecommendBox>
+      <SubFooter>
+        <InfoBox>
+          <InfoList>
+            <InfoListLink>Instagram 정보</InfoListLink>
+          </InfoList>
+          <InfoList>
+            <InfoListLink>지원</InfoListLink>
+          </InfoList>
+          <InfoList>
+            <InfoListLink>홍보 센터</InfoListLink>
+          </InfoList>
+          <InfoList>
+            <InfoListLink>API</InfoListLink>
+          </InfoList>
+          <InfoList>
+            <InfoListLink>채용 정보</InfoListLink>
+          </InfoList>
+          <InfoList>
+            <InfoListLink>개인정보처리방침</InfoListLink>
+          </InfoList>
+          <InfoList>
+            <InfoListLink>약관</InfoListLink>
+          </InfoList>
+          <InfoList>
+            <InfoListLink>디렉터리</InfoListLink>
+          </InfoList>
+          <InfoList>
+            <InfoListLink>프로필</InfoListLink>
+          </InfoList>
+          <InfoList>
+            <InfoListLink>해시태그</InfoListLink>
+          </InfoList>
+          <InfoList>
+            <InfoListLink>언어</InfoListLink>
+          </InfoList>
+        </InfoBox>
+        <CopyRightInfo>© 2019 INSTAGRAM</CopyRightInfo>
+      </SubFooter>
+    </Wrapper>
+  );
+};
+
+export default SubContents;
+
 
 const Wrapper = styled.div`
   max-width: 293px;
@@ -195,228 +283,3 @@ const IdSubtitle = styled.div`
   color: #999;
   text-align: left;
 `;
-
-const ProfileBoxWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  max-width: 300px;
-`;
-
-const ProfileBoxImgBox = styled.a`
-  width: 40px;
-  height: 40px;
-  cursor: pointer;
-  display: flex;
-  border-radius: 50%;
-  justify-content: center;
-  align-items: center;
-`;
-
-const ProfileBoxImg = styled.img`
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  border-radius: 100%;
-`;
-
-const ProfileBoxIdSection = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin-left: 16px;
-`;
-
-const ProfileBoxIdSubtitle = styled.div`
-  font-size: 10px;
-  padding-top: 4px;
-  line-height: 15px;
-  color: #999;
-  text-align: left;
-`;
-
-const SubContents: React.FC = () => {
-  return (
-    <Wrapper>
-      <InnerWrapper>
-        <ProfileWrapper>
-          <ProfileImgBox>
-            <ProfileImg src={profileImage} />
-          </ProfileImgBox>
-          <IdSection>
-            <IdTitle href="/">
-              <Id>haileyself</Id>
-            </IdTitle>
-            <IdSubtitle>17시간전</IdSubtitle>
-          </IdSection>
-        </ProfileWrapper>
-      </InnerWrapper>
-      <StoryBox>
-        <SubBoxHeader>
-          <SubBoxName>스토리</SubBoxName>
-          <ShowSubBoxLink>
-            <ShowSubBox>모두 보기</ShowSubBox>
-          </ShowSubBoxLink>
-        </SubBoxHeader>
-        <StorySection>
-          <StoryButton>
-            <ProfileBoxWrapper>
-              <ProfileBoxImgBox>
-                <ProfileBoxImg src={ProfileData[0].src} />
-              </ProfileBoxImgBox>
-              <ProfileBoxIdSection>
-                <IdTitle href="/">
-                  <Id>{ProfileData[0].id} </Id>
-                </IdTitle>
-                <ProfileBoxIdSubtitle>
-                  {ProfileData[0].time}
-                </ProfileBoxIdSubtitle>
-              </ProfileBoxIdSection>
-            </ProfileBoxWrapper>
-          </StoryButton>
-          <StoryButton>
-            <ProfileBoxWrapper>
-              <ProfileBoxImgBox>
-                <ProfileBoxImg src={ProfileData[1].src} />
-              </ProfileBoxImgBox>
-              <ProfileBoxIdSection>
-                <IdTitle href="/">
-                  <Id>{ProfileData[1].id}</Id>
-                </IdTitle>
-                <ProfileBoxIdSubtitle>
-                  {ProfileData[1].time}
-                </ProfileBoxIdSubtitle>
-              </ProfileBoxIdSection>
-            </ProfileBoxWrapper>
-          </StoryButton>
-          <StoryButton>
-            <ProfileBoxWrapper>
-              <ProfileBoxImgBox>
-                <ProfileBoxImg src={ProfileData[2].src} />
-              </ProfileBoxImgBox>
-              <ProfileBoxIdSection>
-                <IdTitle href="/">
-                  <Id>{ProfileData[2].id}</Id>
-                </IdTitle>
-                <ProfileBoxIdSubtitle>
-                  {ProfileData[2].time}
-                </ProfileBoxIdSubtitle>
-              </ProfileBoxIdSection>
-            </ProfileBoxWrapper>
-          </StoryButton>
-          <StoryButton>
-            <ProfileBoxWrapper>
-              <ProfileBoxImgBox>
-                <ProfileBoxImg src={ProfileData[3].src} />
-              </ProfileBoxImgBox>
-              <ProfileBoxIdSection>
-                <IdTitle href="/">
-                  <Id>{ProfileData[3].id}</Id>
-                </IdTitle>
-                <ProfileBoxIdSubtitle>
-                  {ProfileData[3].time}
-                </ProfileBoxIdSubtitle>
-              </ProfileBoxIdSection>
-            </ProfileBoxWrapper>
-          </StoryButton>
-        </StorySection>
-      </StoryBox>
-      <RecommendBox>
-        <SubBoxHeader>
-          <SubBoxName>회원님을 위한 추천</SubBoxName>
-          <ShowSubBoxLink>
-            <ShowSubBox>모두 보기</ShowSubBox>
-          </ShowSubBoxLink>
-        </SubBoxHeader>
-        <RecommendSection>
-          <RecommendList>
-            <ProfileBoxWrapper>
-              <ProfileBoxImgBox>
-                <ProfileBoxImg src={ProfileData[4].src} />
-              </ProfileBoxImgBox>
-              <ProfileBoxIdSection>
-                <IdTitle href="/">
-                  <Id>{ProfileData[4].id}</Id>
-                </IdTitle>
-                <ProfileBoxIdSubtitle>
-                  {ProfileData[4].time}
-                </ProfileBoxIdSubtitle>
-              </ProfileBoxIdSection>
-            </ProfileBoxWrapper>
-            <FollowButton>팔로우</FollowButton>
-          </RecommendList>
-          <RecommendList>
-            <ProfileBoxWrapper>
-              <ProfileBoxImgBox>
-                <ProfileBoxImg src={ProfileData[5].src} />
-              </ProfileBoxImgBox>
-              <ProfileBoxIdSection>
-                <IdTitle href="/">
-                  <Id>{ProfileData[5].id}</Id>
-                </IdTitle>
-                <ProfileBoxIdSubtitle>
-                  {ProfileData[5].time}
-                </ProfileBoxIdSubtitle>
-              </ProfileBoxIdSection>
-            </ProfileBoxWrapper>
-            <FollowButton>팔로우</FollowButton>
-          </RecommendList>
-          <RecommendList>
-            <ProfileBoxWrapper>
-              <ProfileBoxImgBox>
-                <ProfileBoxImg src={ProfileData[0].src} />
-              </ProfileBoxImgBox>
-              <ProfileBoxIdSection>
-                <IdTitle href="/">
-                  <Id>{ProfileData[0].id}</Id>
-                </IdTitle>
-                <ProfileBoxIdSubtitle>
-                  {ProfileData[0].time}
-                </ProfileBoxIdSubtitle>
-              </ProfileBoxIdSection>
-            </ProfileBoxWrapper>
-            <FollowButton>팔로우</FollowButton>
-          </RecommendList>
-        </RecommendSection>
-      </RecommendBox>
-      <SubFooter>
-        <InfoBox>
-          <InfoList>
-            <InfoListLink>Instagram 정보</InfoListLink>
-          </InfoList>
-          <InfoList>
-            <InfoListLink>지원</InfoListLink>
-          </InfoList>
-          <InfoList>
-            <InfoListLink>홍보 센터</InfoListLink>
-          </InfoList>
-          <InfoList>
-            <InfoListLink>API</InfoListLink>
-          </InfoList>
-          <InfoList>
-            <InfoListLink>채용 정보</InfoListLink>
-          </InfoList>
-          <InfoList>
-            <InfoListLink>개인정보처리방침</InfoListLink>
-          </InfoList>
-          <InfoList>
-            <InfoListLink>약관</InfoListLink>
-          </InfoList>
-          <InfoList>
-            <InfoListLink>디렉터리</InfoListLink>
-          </InfoList>
-          <InfoList>
-            <InfoListLink>프로필</InfoListLink>
-          </InfoList>
-          <InfoList>
-            <InfoListLink>해시태그</InfoListLink>
-          </InfoList>
-          <InfoList>
-            <InfoListLink>언어</InfoListLink>
-          </InfoList>
-        </InfoBox>
-        <CopyRightInfo>© 2019 INSTAGRAM</CopyRightInfo>
-      </SubFooter>
-    </Wrapper>
-  );
-};
-
-export default SubContents;

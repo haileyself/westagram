@@ -6,6 +6,41 @@ import myicon from 'src/assets/icons/myicon.png';
 import westagramLogo from 'src/assets/icons/westagramLogo.png';
 import styled from 'styled-components';
 
+const Header = () => {
+  return (
+    <Wrapper>
+      <InnerWrapper>
+        <LogoWrapper>
+          <LogoBox>
+            <LogoIcon />
+          </LogoBox>
+          <LetterBox>
+            <LetterLogo />
+          </LetterBox>
+        </LogoWrapper>
+        <SearchBoxWrap>
+          <SearchBox type="text" placeholder="검색" />
+        </SearchBoxWrap>
+        <NavWrapper>
+          <NavInnerWrapper>
+            <ExploreBox>
+              <ExploreIcon />
+            </ExploreBox>
+            <LikeBox>
+              <LikeIcon />
+            </LikeBox>
+            <MyIconBox>
+              <MyIcon />
+            </MyIconBox>
+          </NavInnerWrapper>
+        </NavWrapper>
+      </InnerWrapper>
+    </Wrapper>
+  );
+};
+
+export default Header;
+
 const Wrapper = styled.div`
   width: 100%;
   height: 77px;
@@ -136,38 +171,3 @@ const MyIcon = styled.img.attrs({
 })`
   width: 100%;
 `;
-
-const Header = () => {
-  return (
-    <Wrapper>
-      <InnerWrapper>
-        <LogoWrapper>
-          <LogoBox>
-            <LogoIcon />
-          </LogoBox>
-          <LetterBox>
-            <LetterLogo />
-          </LetterBox>
-        </LogoWrapper>
-        <SearchBoxWrap>
-          <SearchBox type="text" placeholder="검색" />
-        </SearchBoxWrap>
-        <NavWrapper>
-          <NavInnerWrapper>
-            <ExploreBox>
-              <ExploreIcon />
-            </ExploreBox>
-            <LikeBox>
-              <LikeIcon />
-            </LikeBox>
-            <MyIconBox>
-              <MyIcon />
-            </MyIconBox>
-          </NavInnerWrapper>
-        </NavWrapper>
-      </InnerWrapper>
-    </Wrapper>
-  );
-};
-
-export default Header;
