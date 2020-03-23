@@ -1,5 +1,8 @@
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
+
+![Made by Haileyself](https://img.shields.io/badge/Made%20with%20%E2%9D%A4%EF%B8%8Fby-haileyself-9cf)
+
 Below you will find some information on how to perform common tasks.<br>
 You can find the most recent version of this guide [here](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md).
 
